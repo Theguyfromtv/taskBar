@@ -1,7 +1,20 @@
+//requiring everything we need
 const express = require("express");
 const path = require("path");
+const bodyParser = require('body-parser')
+const cookieParser= require('cookie-parser')
+require('dotenv').config()
+
+//setting up the port for deployment and local
 const PORT = process.env.PORT || 3001;
 const app = express();
+
+//use sessions for tracking logins
+app.use(session({
+  secret: SECRET,
+  resave: true,
+  saveUninitialized: false
+}));
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
