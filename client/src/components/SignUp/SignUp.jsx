@@ -3,8 +3,11 @@ import React, { Component } from 'react'
  class SignUp extends Component {
      state={
         username:"",
+        userVal:false,
         password:"",
-        confPasswor:""
+        passVal:false,
+        confPassword:"",
+        confVal:false
      }
   render() {
     return (
