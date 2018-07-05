@@ -6,10 +6,16 @@ const userController={}
 userController.signUp=(req, res)=>{
     User.create({username:req.body.username, password:req.body.password}, (err,user)=>{
         //handle errors
-        if (err) throw err
-        //if everything is kosher, we set the user as the session and the user is redirected to the main page
-        req.session.id=user._id
-        res.redirect('/tasks')
+        if (err) console.log (err)
+        if(user){
+            //if everything is kosher, we set the user as the session and the user is redirected to the main page
+            req.session.user=user
+            console.log(req.session.user)
+            res.redirect('/tasks')
+        }else{
+            res.json({err:err})
+        }
+
     })
 }
 
@@ -23,7 +29,7 @@ userController.logIn=(req, res)=>{
             res.json({user:false})
         }else{
             //if everything is kosher, the logged in user is redirected to the main page and we set their id as the session
-            req.session.id=user._id
+            req.session.user=user
             res.redirect('/tasks')
         }
 
@@ -32,9 +38,12 @@ userController.logIn=(req, res)=>{
 
 //this controller is in charge of checking if there's an active session- if there is, the user object is sent back, if there isn't, it just sends back false
 userController.getUser=(req, res)=>{
+    //console.log("getting user")
     //if there's a session, find the user in the db and send it back
-    if(req.session.id){
-        User.findOne({_id:req.session},(err, user)=>{
+    console.log(req.session.user)
+    if(req.session.user){
+        User.findOne({_id:req.session.user._id},(err, user)=>{
+            //console.log("finding user")
             //handle errors
             if (err) throw err
             res.json({user:user})
