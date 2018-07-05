@@ -17,7 +17,7 @@ import React, { Component } from 'react'
               <hr/>
               <form>
                 <div className="form-group">
-                  <input type="email" className="form-control" id="exampleInputUsername1" placeholder="Enter email"/>
+                  <input type="username" className="form-control" id="exampleInputUsername1" placeholder="Enter email"/>
                 </div>
                 <div className="form-group">
                   <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"/>

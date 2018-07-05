@@ -48,13 +48,6 @@ UserSchema.pre('save', function(next) {
     });
 });
 
-//create a function to compare the passwords using bycrypt
-UserSchema.methods.comparePassword = function(candidatePassword, cb) {
-    bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-        if (err) return cb(err);
-        cb(null, isMatch);
-    });
-};
 
 
 //create a model from the userschema

@@ -1,4 +1,5 @@
 const User=require('../models/user.js')
+const bcrypt=require('bcrypt')
 
 const userController={}
 
@@ -21,14 +22,26 @@ userController.signUp=(req, res)=>{
 
 //when a user logs in, we find that user in the database
 userController.logIn=(req, res)=>{
-    User.logIn(req.body.username, req.body.password, (err, user)=>{
+    User.findOne({username:req.body.username}, (err, user)=>{
         //handle errors
         if (err) throw err
         //if there isn't a user we send back a false boolean
         else if(!user){
-            res.json({user:false})
+            res.json({error:"can't find that username"})
+        //otherwise we use bcrypt to compare the passwords
         }else{
-            //if everything is kosher, the logged in user is redirected to the main page and we set their id as the session
+           bcrypt.compare(req.body.password, user.password,(err, isMatch)=>{
+                if (err) throw err
+                //if there's a match we set the session as the user and redirect
+                else if (isMatch){
+                    req.session.user=user
+                    res.redirect('/tasks')        
+                }else if (!isMatch){
+                    //otherwise send back an error
+                    res.json({error:"can't find that password"})
+                }
+
+           })
             req.session.user=user
             res.redirect('/tasks')
         }
@@ -57,7 +70,7 @@ userController.getUser=(req, res)=>{
 //and it's time to give them the option to log out
 userController.logOut=(req,res)=>{
     //set the session to null, effectively logging out the user
-    req.session=null
+    req.session.user=null
     res.json({user:false})
 }
 

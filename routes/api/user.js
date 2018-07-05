@@ -10,4 +10,6 @@ router.post('/login', userController.logIn)
 //route to get the user on load, using the usercontroller
 router.post('/getuser', userController.getUser)
 
+router.post('/logout', userController.logOut)
+
 module.exports = router;
