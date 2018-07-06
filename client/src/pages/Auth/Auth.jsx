@@ -8,18 +8,30 @@ import API from "../../utils/API/API"
 class Auth extends Component {
   state={
     alert:false,
-    alertMessage:""
+    alertMessage:"",
+    //making sure that page only renders after the session was checked
+    checked:false
   }
   componentDidMount(){
     //when the page loads, we make an axios call to the server to check if there's an active session, if there is, we redirect to the 
-    /*API.getUser().then((res)=>{
+    API.getUser().then((res)=>{
       console.log(res)
+      //setting checked to true, thus allowing the component to render
       //if we get a user, we redirect them to the tasklist page
       if(res.data.user){
         console.log(res.data.user)
+        //making sure page doesn't render until session is checked
+        setTimeout(() => {
+          this.setState({checked:true})
+        }, 100);        
         window.location.href="/tasks"
+      }else{
+        //making sure page doesn't render until session is checked
+        setTimeout(() => {
+          this.setState({checked:true})
+        }, 100);
       }
-    })*/
+    })
   }
   errorHandler=(message)=>{
     this.setState({alert:true})
@@ -28,6 +40,7 @@ class Auth extends Component {
   render() {
     return (
       <div>
+        {this.state.checked&&
           <div className="container">
           {this.state.alert&&<Alert text={this.state.alertMessage}/>}
             <div className="row">
@@ -43,7 +56,7 @@ class Auth extends Component {
                   <SignUp onError={this.errorHandler}/>
                 </div>
             </div>
-          </div>
+          </div>}
       </div>
     )
   }
