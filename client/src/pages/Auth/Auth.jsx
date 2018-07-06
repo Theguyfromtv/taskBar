@@ -12,14 +12,18 @@ class Auth extends Component {
   }
   componentDidMount(){
     //when the page loads, we make an axios call to the server to check if there's an active session, if there is, we redirect to the 
-    API.getUser().then((res)=>{
+    /*API.getUser().then((res)=>{
       console.log(res)
       //if we get a user, we redirect them to the tasklist page
       if(res.data.user){
         console.log(res.data.user)
         window.location.href="/tasks"
       }
-    })
+    })*/
+  }
+  errorHandler=(message)=>{
+    this.setState({alert:true})
+    this.setState({alertMessage:message})
   }
   render() {
     return (
@@ -33,10 +37,10 @@ class Auth extends Component {
             </div>
             <div className="row">
                 <div className="col-6">
-                  <Login/>
+                  <Login onError={this.errorHandler}/>
                 </div>
                 <div className="col-6">
-                  <SignUp/>
+                  <SignUp onError={this.errorHandler}/>
                 </div>
             </div>
           </div>

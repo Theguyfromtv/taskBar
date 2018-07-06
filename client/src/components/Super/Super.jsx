@@ -5,7 +5,6 @@ const Super = () => {
     <div>
         <h1>taskBar</h1>
         <h6>a totally casual tasklist app</h6>
-      
     </div>
   )
 }

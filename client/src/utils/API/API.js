@@ -19,12 +19,12 @@ const API= {
     },
     //axios call to get current user
     getUser:()=>{
-      return axios.post('user/getuser',{
+      return axios.post('/user/getuser',{
       })
     },
-
+    //axios call to log out
     logOut:()=>{
-      return axios.post('user/logout',{
+      return axios.post('/user/logout',{
       })
     }
   };

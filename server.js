@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const mongoose = require("mongoose");
 const routes = require("./routes/api/");
 const session = require('express-session')
+var MemoryStore = require('memorystore')(session)
 require('dotenv').config()
 
 //setting up the port for deployment and local
@@ -17,10 +18,14 @@ app.use(bodyParser.json());
 
 //use sessions for tracking logins
 app.use(session({
-  secret: 'Katniss and Valkyrie to the rescue',
+  store: new MemoryStore({
+    checkPeriod: 7*24*60*60*1000 // prune expired entries every 24h
+  }),
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: { 
+    httpOnly: false,
     secure: false, 
     maxAge: 7*24*60*60*1000 //one week
   }
@@ -31,9 +36,9 @@ app.use(routes);
 
 
 //make the server serve up react's index file and use react router
-//app.get('*', function (req, res){
-//  res.sendFile(path.join(__dirname, "/client/build/index.html"));
-//})
+app.get('*', function (req, res){
+  res.sendFile(path.join(__dirname, "/client/build/index.html"));
+})
 
 //connect to the db
 mongoose.connect(process.env.MONGODB_URI || "mongodb://127.0.0.1/taskBar");
