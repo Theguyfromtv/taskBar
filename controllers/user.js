@@ -15,9 +15,9 @@ userController.signUp=(req, res)=>{
             req.session.user=user
             req.session.save()
             //console.log(req.session.user)
-            res.json({user:true})        
+            res.json({user:user})        
         }else{
-            res.json({error:"username already in use"})
+            res.redirect('/?error=true&type=usernamesignup')
         }
 
     })
@@ -30,9 +30,9 @@ userController.logIn=(req, res)=>{
         //handle errors
         console.log("user: ")
         if (err) throw err
-        //if there isn't a user we send back a false boolean
+        //if there isn't a user we send back query paramaters with an error
         else if(!user){
-            res.json({error:"can't find that username"})
+            res.redirect('/?error=true&type=username')
         //otherwise we use bcrypt to compare the passwords
         }else{
            bcrypt.compare(req.body.password, user.password,(err, isMatch)=>{
@@ -43,12 +43,12 @@ userController.logIn=(req, res)=>{
                     req.session.save(()=>{
                         console.log("this is the login")
                         console.log(req.session.user)
-                        res.json({user:true})  
+                        res.json({user:user})  
                     })
                           
                 }else if (!isMatch){
-                    //otherwise send back an error
-                    res.json({error:"wrong password"})
+                    //otherwise send back an error in the paramaters
+                    res.redirect('/?error=true&type=password')
                 }
 
            })
