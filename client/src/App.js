@@ -1,19 +1,30 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import  {BrowserRouter as Router,Route} from 'react-router-dom';
+import {Switch} from 'react-router-dom';
+import Auth from './pages/Auth/Auth'
+import Tasklist from "./pages/Tasklist/Tasklist"
+import AuthProvider from './components/AuthProvider/AuthProvider'
+import AuthContext from './components/AuthContext/AuthContext'
+
 
 class App extends Component {
+
+
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+      <AuthProvider>
+        <div className="App">
+        <AuthContext.Consumer>
+          {context=> 
+          <Router>
+            <Switch>
+              <Route path='/'component={context.state.isAuthenticated?Tasklist:Auth}/>
+            </Switch>
+          </Router>}
+        </AuthContext.Consumer>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      </AuthProvider>
     );
   }
 }

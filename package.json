@@ -19,6 +19,13 @@
     "nodemon": "^1.11.0"
   },
   "dependencies": {
-    "express": "^4.15.4"
+    "bcrypt": "^2.0.1",
+    "body-parser": "^1.18.3",
+    "cookie-session": "^2.0.0-beta.3",
+    "dotenv": "^6.0.0",
+    "express": "^4.15.4",
+    "express-session": "^1.15.6",
+    "memorystore": "^1.6.0",
+    "mongoose": "^5.1.7"
   }
 }
