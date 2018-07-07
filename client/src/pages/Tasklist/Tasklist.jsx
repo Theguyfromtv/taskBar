@@ -16,7 +16,7 @@ class Tasklist extends Component {
                         {context=>
                             <React.Fragment>
                                 <div className="container">
-                                    <div className="row">
+                                    <div className="row" style={{padding:"10px"}}>
                                         <div className="col-12">
                                             <h3 className="float-left">{context.state.currentUser.username}'s Tasks</h3>
                                             <button className="btn btn-primary float-right" onClick={context.logOut}>Log Out</button> 
@@ -25,7 +25,7 @@ class Tasklist extends Component {
                                         <div className="row">
                                             <div className="col-12">
                                                 {context.state.addingTask?<TaskForm/>:<TaskAdd onClick={context.addTaskToggle}/>}
-                                                {context.state.currentUser.tasks.map(task=>(
+                                                {context.state.currentUser.tasks.length>0?context.state.currentUser.tasks.map(task=>(
                                                 <TaskCard 
                                                 key={task._id}
                                                 tid={task._id}
@@ -34,7 +34,8 @@ class Tasklist extends Component {
                                                 dueDate={task.dueDate}
                                                 desc={task.description}
                                                 delete={context.deleteTask}/>
-                                                ))}
+                                                )):
+                                                <h3 style={{padding:"10px"}}>No tasks here! Go have a drink!</h3>}
                                             </div>
                                         </div>   
                                     </div>

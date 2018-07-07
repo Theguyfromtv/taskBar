@@ -1,84 +1,72 @@
-# Create React Express App
+# taskBar
 
-## About This Boilerplate
+taskBar is a basic tasklist app with authentication
 
-This setup allows for a Node/Express/React app which can be easily deployed to Heroku.
+Technologies: MERN stack
+Mongoose- ORM
+Bcrypt- password hashing
+Express-sessions- sessions
+Axios- ajax calls
+Bootstrap- CSS
 
-The front-end React app will auto-reload as it's updated via webpack dev server, and the backend Express app will auto-reload independently with nodemon.
+taskBar also uses the new React context API to keep up with validation throughout the app
 
-## Starting the app locally
+##Instructions
 
-Start by installing front and backend dependencies. While in this directory, run the following commands:
+clone or download this repo, then
 
 ```
-yarn install
+npm i
 cd client
-yarn install
-cd ..
-``
-
-After both installations complete, run the following command in your terminal:
+npm i
+npm start
+```
+then open a new terminal window from the root of the repo
 
 ```
-yarn start
+node server.js
 ```
-
-That's it, your app should be running on <http://localhost:3000>. The Express server should intercept any AJAX requests from the client.
-
-## Deployment (Heroku)
-
-### Create a Git Repo
-
-Once you're ready to deploy, start by making sure your project is a git repository. If so, proceed to the next section, otherwise run the following commands in your terminal:
+then in a new terminal window (in your default location)
 
 ```
-git init
-git add .
-git commit -m "Initial commit"
+mongod
 ```
-
-### Heroku
-
-Make sure that you have a Heroku app created for this project. If so, proceed to the next section, otherwise run the following command in your terminal:
+Lastly, you must create a ".env" file at the root folder of the app and add in a SECRET like this (use any string you like):
 
 ```
-heroku create
+SECRET= 'Victorias'
 ```
 
-Optionally add an argument for your application's name after `create`, e.g.
+please note these instructions assume you have npm, node, and mongodb installed globally on your machine
 
-```
-heroku myAwesomeApp
-```
+## Screenshots
 
-### Deploying
+###Authentication page
 
-#### Option 1
+####Default state
+![Authentication page](./screenshots/authentication_page.png)
 
-Use the deploy script inside of the outer `package.json`
+####Sign up form validation
+![Authentication page validation](./screenshots/authentication_page_sign_up_form_validation.png)
 
-After confirming that you have an up to date git repository and a Heroku app created, run the following command to deploy:
+####Errors
+![Authentication page validation](./screenshots/authentication_page_errors.png)
 
-```
-yarn deploy
-```
+###Tasks page
 
-If all previous steps were followed correctly, your application should be deployed to Heroku!
+####No tasks
+![Tasks page](./screenshots/tasks_page_no_tasks.png)
 
-#### Option 2
+####Task creation
+![Tasks creation page](./screenshots/task_creation_form.png)
 
-Manually deploy 
+####With tasks
+![Tasks page](./screenshots/tasks_page_with_tasks.png)
 
-After confirming that you have an up to date git repository and a Heroku app created, complete the following:
 
-1. Build the React app for production by running the following command:
+## Notes
 
-```
-yarn build
-```
+This was a super fun exercise! 
 
-2. Add and commit all changes to git
+email me if you have any questions: goldfinger@goldfinger.ninja
 
-3. Push to Heroku
-
-If all previous steps were followed correctly, your application should be deployed to Heroku!

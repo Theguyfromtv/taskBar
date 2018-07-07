@@ -47,7 +47,7 @@ class TaskForm extends Component {
              </div>
              <div className="form-group"></div>
                <textarea className="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Description" onChange={this.onDescChange}></textarea>
-               <button disabled={!this.state.submit?true:false} type="submit float-right" className="btn btn-primary" onClick={()=>context.newTask(context.state.currentUser._id,this.state.title,this.state.description, this.state.dueDate)}>Submit</button>
+               <button style={{margin:"10px"}} disabled={!this.state.submit?true:false} type="submit float-right" className="btn btn-primary" onClick={()=>context.newTask(context.state.currentUser._id,this.state.title,this.state.description, this.state.dueDate)}>Submit</button>
            </div>
        </div>
      </div>

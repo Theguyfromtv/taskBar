@@ -53,7 +53,6 @@ import AuthContext from "../../components/AuthContext/AuthContext"
                   this.setState({passVal:false})
                 }
                 if(this.state.password.length>=8){
-                  console.log("long enough")
                   this.setState({passlength:true})
                 }else if(this.state.password.length<8){
                   this.setState({passlength:false})
