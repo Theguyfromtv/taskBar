@@ -3,12 +3,12 @@ import React, { Component } from 'react'
 const TaskCard =(props)=> {
     return (
         <div>
-            <div className="card">
+            <div className="card text-left">
                 <div className="card-body">
-                    <h3 className="float-left">{this.props.title}</h3>
-                    <button className="btn btn-danger float-right" onClick={()=>this.props.delete(this.props.uid,this.props.tid)}><i className="fas fa-times"></i></button>
+                    <h4>{props.title}</h4>
+                    <button className="btn btn-danger float-right" onClick={()=>props.delete(props.uid,props.tid)}><i className="fas fa-times"></i></button>
                     <p>due date: {props.dueDate}</p>
-                    <p>{props.desc}</p>
+                    <p>description: {props.desc}</p>
                 </div>
             </div>
         </div>

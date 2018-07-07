@@ -23,7 +23,7 @@ class Tasklist extends Component {
                                         </div>  
                                     </div>
                                         <div className="row">
-                                            <div className="col-6">
+                                            <div className="col-12">
                                                 {context.state.addingTask?<TaskForm/>:<TaskAdd onClick={context.addTaskToggle}/>}
                                                 {context.state.currentUser.tasks.map(task=>(
                                                 <TaskCard 
@@ -35,9 +35,6 @@ class Tasklist extends Component {
                                                 desc={task.description}
                                                 delete={context.deleteTask}/>
                                                 ))}
-                                            </div>
-                                            <div className="col-6">
-
                                             </div>
                                         </div>   
                                     </div>

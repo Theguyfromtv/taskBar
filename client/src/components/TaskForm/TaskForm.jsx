@@ -40,10 +40,10 @@ class TaskForm extends Component {
            </div>
            <div className="card-body">
              <div className="form-group">
-               <input type="text" className="form-control" id="exampleInputTitle" placeholder="Due Date" onChange={this.onTitleChange}/>
+               <input type="text" className="form-control" id="exampleInputTitle" placeholder="Title" onChange={this.onTitleChange}/>
              </div>
              <div className="form-group">
-               <input type="text" className="form-control" id="exampleInputDueDate" placeholder="Title" onChange={this.onDueChange}/>
+               <input type="text" className="form-control" id="exampleInputDueDate" placeholder="Due Date" onChange={this.onDueChange}/>
              </div>
              <div className="form-group"></div>
                <textarea className="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Description" onChange={this.onDescChange}></textarea>
