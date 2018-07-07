@@ -41,26 +41,26 @@ please note these instructions assume you have npm, node, and mongodb installed 
 
 ## Screenshots
 
-###Authentication page
+##Authentication page
 
-####Default state
+Default state
 ![Authentication page](./screenshots/authentication_page.png)
 
-####Sign up form validation
+Sign up form validation
 ![Authentication page validation](./screenshots/authentication_page_sign_up_form_validation.png)
 
-####Errors
+Errors
 ![Authentication page validation](./screenshots/authentication_page_errors.png)
 
-###Tasks page
+##Tasks page
 
-####No tasks
+No tasks
 ![Tasks page](./screenshots/tasks_page_no_tasks.png)
 
-####Task creation
+Task creation
 ![Tasks creation page](./screenshots/task_creation_form.png)
 
-####With tasks
+With tasks
 ![Tasks page](./screenshots/tasks_page_with_tasks.png)
 
 
