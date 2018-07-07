@@ -11,6 +11,7 @@ const Auth=()=> {
           {context=> 
           context.state.userChecked?
         <div>
+          {context.state.alert?<Alert message={context.state.alertMessage}/>:<div></div>}
             <div className="container">
               <div className="row">
                 <div className="col-12 super">

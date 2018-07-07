@@ -53,7 +53,6 @@ import AuthContext from "../../components/AuthContext/AuthContext"
                   this.setState({passVal:false})
                 }
                 if(this.state.password.length>=8){
-                  console.log("long enough")
                   this.setState({passlength:true})
                 }else if(this.state.password.length<8){
                   this.setState({passlength:false})
@@ -119,7 +118,7 @@ import AuthContext from "../../components/AuthContext/AuthContext"
                      {this.state.confVal?"":"passwords don't match"}
                    </div>
                    </div>
-                   <button type="submit" disabled={!this.state.submit?true:false} className="btn btn-primary" onClick={()=>context.signUp(this.state.password, this.state.username)}>Sign Up</button>
+                   <button type="button" disabled={!this.state.submit?true:false} className="btn btn-primary" onClick={()=>context.signUp(this.state.password, this.state.username)}>Sign Up</button>
                  </form>
                </div>
              </div>

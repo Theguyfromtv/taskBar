@@ -3,7 +3,8 @@
 const mongoose = require("mongoose");
 //rquire bycrypt for hashing and salting passwords
 bcrypt = require('bcrypt')
-
+//import the task schema to use as a subdocument
+Task=require("./task")
 
 // Create a schema class using mongoose's schema method
 const Schema = mongoose.Schema;
@@ -20,7 +21,7 @@ const UserSchema = new Schema({
     type:String,
     required: true
   },
-  tasks: [{title: {type: String, required: true}, description:  {type: String, required: true}, done:  {type: Boolean, required: true}, dueDate:  {type: String, required: true}}]
+  tasks: [Task]
 },
 {
   timestamps: true

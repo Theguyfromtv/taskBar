@@ -44,7 +44,7 @@ import AuthContext from '../../components/AuthContext/AuthContext'
                  <div className="form-group">
                    <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" onChange={this.onPassChange}/>
                  </div>
-                 <button type="submit" disabled={!this.state.submit?true:false} className="btn btn-primary" onClick={()=>context.logIn(this.state.password,this.state.username)}>Log In</button>
+                 <button type="button" disabled={!this.state.submit?true:false} className="btn btn-primary" onClick={()=>context.logIn(this.state.password,this.state.username)}>Log In</button>
                </form>
              </div>
            </div>
