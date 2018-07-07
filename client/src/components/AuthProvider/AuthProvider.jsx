@@ -8,6 +8,8 @@ class AuthProvider extends Component {
     isAuthenticated:false,
     alert:false,
     alertMessage:"",
+    //this is to make sure we don't render before completeing the check user call
+    userChecked:false
   }
   logIn=(password, username)=>{
     //once all is well, we send the info to the backend
@@ -55,6 +57,13 @@ class AuthProvider extends Component {
       console.log(res.data.user)
       this.setState({currentUser:res.data.user})
       this.setState({isAuthenticated:true})
+      //making sure to set the state that user is checked, after we set the state of the current user
+      setTimeout(() => {
+        this.setState({userChecked:true})
+      }, 10);
+      }else{
+        this.setState({userChecked:true})
+        console.log(this.state.userChecked)
       }
   })
   }
