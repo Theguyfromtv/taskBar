@@ -1,20 +1,20 @@
 import React, { Component } from 'react'
-import API from "../../utils/API/API"
+import AuthContext from "../../components/AuthContext/AuthContext"
 
  class SignUp extends Component {
      state={
-       //taking in all the values- both the length and composition of the username and password are validated, as well as the ability to submit and making sure helpertext doesn't appear until field is clicked
+       //taking in all the values- both the length and composition of the username and password are validated, as well as the ability to submit and making sure helpertext doesn't appear until field is focused
         username:"",
         userVal:false,
         userlength:false,
-        userClicked:false,
+        userFocused:false,
         password:"",
         passVal:false,
         passlength:false,
-        passClicked:false,
+        passFocused:false,
         confPassword:"",
         confVal:false,
-        confClicked:false,
+        conffocused:false,
         submit:false
      }
      onUserChange=(event)=>{
@@ -37,9 +37,9 @@ import API from "../../utils/API/API"
         }, 100)
 
      }
-     onUserClick=()=>{
-       //making sure the helpertext only appears on click
-       this.setState({userClicked:true})
+     onUserFocus=()=>{
+       //making sure the helpertext only appears on focus
+       this.setState({userFocused:true})
      }
      onPassChange=(event)=>{
              //Making sure the password only contains letters and numbers and is atleast 8 charecters 
@@ -61,9 +61,9 @@ import API from "../../utils/API/API"
                 this.timeToSubmit()
               }, 100)
     }
-    onPassClick=()=>{
-      //making sure helpertext only appears on click
-      this.setState({passClicked:true})
+    onPassFocus=()=>{
+      //making sure helpertext only appears on focus
+      this.setState({passFocused:true})
     }
     onConfChange=(event)=>{
       //Making sure the password and password confirmation match
@@ -79,8 +79,9 @@ import API from "../../utils/API/API"
         this.timeToSubmit()
       }, 100)
     }
-    onConfClick=()=>{
-      this.setState({confClicked:true})
+    onConfFocus=()=>{
+      //making sure helpertext only appears on focus
+      this.setState({confFocused:true})
     }
     timeToSubmit=()=>{
       //this function allows users to submit the form once all the fields are validated
@@ -88,46 +89,44 @@ import API from "../../utils/API/API"
         this.setState({submit:true})
       }
     }
-    clickSubmit=()=>{
-      API.signUp(this.state.password,this.state.username).then(res=>{
-        if(res.user){
-          window.location.href="/tasks"
-        }
-      })
-    }
   render() {
     return (
-      <div>
-        <div className="card login">
-            <div className="card-body">
-              <div className="text-center">
-                Sign up
-              </div>
-              <hr/>
-              <form>
-                <div className="form-group">
-                  <input type="Username" className={this.state.userClicked?this.state.userVal?this.state.userlength?"form-control is-valid":"form-control is-invalid 1":"form-control is-invalid 2":"form-control"} id="exampleInputUsername2" placeholder="Username" onChange={this.onUserChange} onFocus={this.onUserClick}/>
-                <div className="invalid-feedback">
-                  {this.state.userVal?this.state.userlength?"":"must be at least 5 characters":"must consist of only letters and numbers"}
-                </div>
-                </div>
-                <div className="form-group">
-                  <input type="password" className={this.state.passClicked?this.state.passVal?this.state.passlength?"form-control is-valid":"form-control is-invalid 1":"form-control is-invalid 2":"form-control"}  id="exampleInputPassword2" placeholder="Password" onChange={this.onPassChange} onFocus={this.onPassClick}/>
-                  <div className="invalid-feedback">
-                  {this.state.passVal?this.state.passlength?"":"must be at least 8 characters":"must consist of only letters and numbers"}
-                </div>
-                </div>
-                <div className="form-group">
-                  <input type="password" className={this.state.confClicked?this.state.confVal?"form-control is-valid":"form-control is-invalid":"form-control"} id="exampleInputPassword3" placeholder="Confirm Password"onChange={this.onConfChange} onFocus={this.onConfClick}/>
-                  <div className="invalid-feedback">
-                  {this.state.confVal?"":"passwords don't match"}
-                </div>
-                </div>
-                <button type="submit" disabled={!this.state.submit?true:false} className="btn btn-primary" onClick={this.clickSubmit}>Submit</button>
-              </form>
-            </div>
-          </div>
-      </div>
+      <AuthContext.Consumer>
+        {context=>
+           <div>
+           <div className="card login">
+               <div className="card-body">
+                 <div className="text-center">
+                   Sign up
+                 </div>
+                 <hr/>
+                 <form>
+                   <div className="form-group">
+                     <input type="Username" className={this.state.userFocused?this.state.userVal?this.state.userlength?"form-control is-valid":"form-control is-invalid 1":"form-control is-invalid 2":"form-control"} id="exampleInputUsername2" placeholder="Username" onChange={this.onUserChange} onFocus={this.onUserFocus}/>
+                   <div className="invalid-feedback">
+                     {this.state.userVal?this.state.userlength?"":"must be at least 5 characters":"must consist of only letters and numbers"}
+                   </div>
+                   </div>
+                   <div className="form-group">
+                     <input type="password" className={this.state.passFocused?this.state.passVal?this.state.passlength?"form-control is-valid":"form-control is-invalid 1":"form-control is-invalid 2":"form-control"}  id="exampleInputPassword2" placeholder="Password" onChange={this.onPassChange} onFocus={this.onPassFocus}/>
+                     <div className="invalid-feedback">
+                     {this.state.passVal?this.state.passlength?"":"must be at least 8 characters":"must consist of only letters and numbers"}
+                   </div>
+                   </div>
+                   <div className="form-group">
+                     <input type="password" className={this.state.confFocused?this.state.confVal?"form-control is-valid":"form-control is-invalid":"form-control"} id="exampleInputPassword3" placeholder="Confirm Password"onChange={this.onConfChange} onFocus={this.onConfFocus}/>
+                     <div className="invalid-feedback">
+                     {this.state.confVal?"":"passwords don't match"}
+                   </div>
+                   </div>
+                   <button type="submit" disabled={!this.state.submit?true:false} className="btn btn-primary" onClick={()=>context.signUp(this.state.password, this.state.username)}>Sign Up</button>
+                 </form>
+               </div>
+             </div>
+         </div>
+        }
+      </AuthContext.Consumer>
+
     )
   }
 }
