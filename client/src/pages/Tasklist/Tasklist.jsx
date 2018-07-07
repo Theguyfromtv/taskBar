@@ -14,7 +14,7 @@ class Tasklist extends Component {
                         {context=>
                             <React.Fragment>
                                 <h3>{context.state.currentUser.username}'s Tasks</h3>
-                                <button className="btn btn-primary" onClick={context.logOut}/>
+                                <button className="btn btn-primary" onClick={context.logOut}>Log Out</button>
                             </React.Fragment>
                         }
                     </AuthContext.Consumer>

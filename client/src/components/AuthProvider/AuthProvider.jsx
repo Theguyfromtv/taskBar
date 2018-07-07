@@ -9,7 +9,17 @@ class AuthProvider extends Component {
     alert:false,
     alertMessage:"",
     //this is to make sure we don't render before completeing the check user call
-    userChecked:false
+    userChecked:false,
+    //this is to determine the interface mode of the tasklist page
+    addingUser:false
+  }
+  addUserToggle=()=>{
+    if(this.state.addingUser){
+      this.setState({addingUser:false})
+    }else if(!this.state.addingUser){
+      this.setState({addingUser:true})
+    }
+
   }
   logIn=(password, username)=>{
     //once all is well, we send the info to the backend
@@ -45,9 +55,34 @@ class AuthProvider extends Component {
         this.setState({isAuthenticated:false})
       })
   }
-  userUpdate=()=>{
-
+  //create a new task
+  newTask=(uid,tid,title, description)=>{
+    API.newTask(uid,tid,title,description).then((res)=>{
+      //once it's created, we push the updated user object to the state
+      this.setState({currentUser:res.data.user})
+    })
   }
+  //edit an existing task
+  editTask=(uid,tid,title, description)=>{
+    API.editTask(uid,tid,title,description).then((res)=>{
+      //once it's edited, we push the updated user object to the state
+      this.setState({currentUser:res.data.user})
+    })
+  } 
+  //set task as done
+  doneTask=(uid,tid)=>{
+    API.doneTask(uid,tid).then((res)=>{
+      //once it's set as done, we push the updated user object to the state
+      this.setState({currentUser:res.data.user})
+    })
+  } 
+  //delete task
+  deleteTask=(uid,tid)=>{
+    API.deleteTask(uid,tid).then((res)=>{
+      //once it's deleted, we push the updated user object to the state
+      this.setState({currentUser:res.data.user})
+    })
+  } 
   checkUser=()=>{
   //when the page loads, we make an axios call to the server to check if there's an active session, if there is, we add that to the state 
   API.getUser().then((res)=>{
@@ -63,7 +98,6 @@ class AuthProvider extends Component {
       }, 10);
       }else{
         this.setState({userChecked:true})
-        console.log(this.state.userChecked)
       }
   })
   }
@@ -80,7 +114,12 @@ class AuthProvider extends Component {
           state:this.state,
           logIn:this.logIn,
           signUp:this.signUp,
-          logOut:this.logOut}}>
+          logOut:this.logOut,
+          newTask:this.newTask,
+          editTask:this.editTask,
+          doneTask:this.doneTask,
+          deleteTask:this.deleteTask
+          }}>
           {this.props.children}
         </AuthContext.Provider>
     )
