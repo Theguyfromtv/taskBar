@@ -26,25 +26,12 @@ const API= {
       return axios.post('/user/logout',{
       })
     },
-    newTask:(id,title, description)=>{
+    newTask:(id,title, description,dueDate)=>{
       return axios.post('/task/new',{
         id:id,
         title:title,
-        description:description
-      })
-    },
-    editTask:(uid,tid,title,description)=>{
-      return axios.post('/task/edit',{
-        uid:uid,
-        tid:tid,
-        title:title,
-        description:description
-      })
-    },
-    doneTask:(uid, tid)=>{
-      return axios.post('/task/done',{
-        uid:uid,
-        tid:tid
+        description:description,
+        dueDate:dueDate
       })
     },
     deleteTask:(uid, tid)=>{

@@ -11,15 +11,14 @@ class AuthProvider extends Component {
     //this is to make sure we don't render before completeing the check user call
     userChecked:false,
     //this is to determine the interface mode of the tasklist page
-    addingUser:false
+    addingTask:false
   }
-  addUserToggle=()=>{
-    if(this.state.addingUser){
-      this.setState({addingUser:false})
-    }else if(!this.state.addingUser){
-      this.setState({addingUser:true})
+  addTaskToggle=()=>{
+    if(this.state.addingTask){
+      this.setState({addingTask:false})
+    }else if(!this.state.addingTask){
+      this.setState({addingTask:true})
     }
-
   }
   logIn=(password, username)=>{
     //once all is well, we send the info to the backend
@@ -30,6 +29,15 @@ class AuthProvider extends Component {
         this.setState({currentUser:res.data.user})
         this.setState({isAuthenticated:true})
        }else{
+         if(res.data.error==="username"){
+           console.log("username")
+          this.setState({alert:true})
+          this.setState({alertMessage:"Wrong Username!"})
+        }else if(res.data.error==="password"){
+          console.log("password")
+          this.setState({alert:true})
+          this.setState({alertMessage:"Wrong Password!"})
+        }
          //here we handle errors
        }
        })
@@ -41,9 +49,15 @@ class AuthProvider extends Component {
         //if everything works we set the state
         this.setState({currentUser:res.data.user})
         this.setState({isAuthenticated:true})
-      }else{
-        //here we handle errors
-
+      }else if(res.data.error){
+        if(res.data.error==="usernameExists"){
+          console.log("usernameExists")
+          this.setState({alert:true})
+          this.setState({alertMessage:"That Username is Taken, pick another one!"})
+          setTimeout(() => {
+            this.setState({userChecked:true})
+          }, 10);
+        }
       }
     })
   }
@@ -56,29 +70,18 @@ class AuthProvider extends Component {
       })
   }
   //create a new task
-  newTask=(uid,tid,title, description)=>{
-    API.newTask(uid,tid,title,description).then((res)=>{
+  newTask=(uid,tid,title, description,dueDate)=>{
+    API.newTask(uid,tid,title,description,dueDate).then((res)=>{
+      console.log(res)
       //once it's created, we push the updated user object to the state
       this.setState({currentUser:res.data.user})
+      this.addTaskToggle()
     })
   }
-  //edit an existing task
-  editTask=(uid,tid,title, description)=>{
-    API.editTask(uid,tid,title,description).then((res)=>{
-      //once it's edited, we push the updated user object to the state
-      this.setState({currentUser:res.data.user})
-    })
-  } 
-  //set task as done
-  doneTask=(uid,tid)=>{
-    API.doneTask(uid,tid).then((res)=>{
-      //once it's set as done, we push the updated user object to the state
-      this.setState({currentUser:res.data.user})
-    })
-  } 
   //delete task
   deleteTask=(uid,tid)=>{
     API.deleteTask(uid,tid).then((res)=>{
+      console.log(res)
       //once it's deleted, we push the updated user object to the state
       this.setState({currentUser:res.data.user})
     })
@@ -101,12 +104,8 @@ class AuthProvider extends Component {
       }
   })
   }
-  checkError=()=>{
-
-  }
   componentDidMount(){
     this.checkUser()
-    this.checkError()
   }
   render() {
     return (
@@ -118,7 +117,8 @@ class AuthProvider extends Component {
           newTask:this.newTask,
           editTask:this.editTask,
           doneTask:this.doneTask,
-          deleteTask:this.deleteTask
+          deleteTask:this.deleteTask,
+          addTaskToggle:this.addTaskToggle
           }}>
           {this.props.children}
         </AuthContext.Provider>

@@ -17,7 +17,7 @@ userController.signUp=(req, res)=>{
             //console.log(req.session.user)
             res.json({user:user})        
         }else{
-            res.redirect('/?error=true&type=usernamesignup')
+            res.json({error:"usernameExists"})
         }
 
     })
@@ -32,8 +32,8 @@ userController.logIn=(req, res)=>{
         if (err) throw err
         //if there isn't a user we send back query paramaters with an error
         else if(!user){
-            res.redirect('/?error=true&type=username')
-        //otherwise we use bcrypt to compare the passwords
+            res.json({error:"username"})
+            //otherwise we use bcrypt to compare the passwords
         }else{
            bcrypt.compare(req.body.password, user.password,(err, isMatch)=>{
                 if (err) throw err
@@ -47,8 +47,8 @@ userController.logIn=(req, res)=>{
                     })
                           
                 }else if (!isMatch){
-                    //otherwise send back an error in the paramaters
-                    res.redirect('/?error=true&type=password')
+                    //otherwise send back an error 
+                    res.json({error:"password"})
                 }
 
            })
