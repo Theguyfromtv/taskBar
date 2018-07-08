@@ -59,7 +59,8 @@ class TaskForm extends Component {
              <div className="form-group">
                <input type="text" className="form-control" id="exampleInputTitle" placeholder="Title" onChange={this.onTitleChange}/>
              </div>
-             <div className="form-row align-items-left" style={{marginBottom:"10px"}}>
+             <label htmlFor="dueDate">Due Date:</label>
+             <div className="form-row align-items-left" id="dueDate"style={{marginBottom:"10px"}}>
               <div className="col-auto">
                   <label htmlFor="monthSelect">Month</label>
                   <select className="form-control" id="monthSelect" onChange={this.onMonthChange}>
