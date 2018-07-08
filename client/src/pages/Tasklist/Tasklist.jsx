@@ -3,7 +3,6 @@ import AuthContext from '../../components/AuthContext/AuthContext'
 import TaskAdd from '../../components/TaskAdd/TaskAdd';
 import TaskForm from '../../components/TaskForm/TaskForm'
 import TaskCard from '../../components/TaskCard/TaskCard'
-import DoneTaskCard from '../../components/DoneTaskCard/DoneTaskCard'
 
 class Tasklist extends Component {
  
