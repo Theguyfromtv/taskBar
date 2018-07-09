@@ -8,9 +8,7 @@ class TaskForm extends Component {
     description:"",
     dueDate:"",
     day:"",
-    dayBool:false,
     month:"",
-    monthBool:false,
     submit:false
   }
   onTitleChange=(event)=>{
